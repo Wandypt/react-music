@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBannerListAsync, getRecommendListAsync } from "./store/slice";
 import { forceCheck } from "react-lazyload";
 import Loading from "../../baseUI/loading/index";
+import { Outlet } from "react-router-dom";
 function Recommend() {
   const dispatch = useDispatch();
   const { bannerList, recommendList, loading } = useSelector(
@@ -37,6 +38,7 @@ function Recommend() {
         </div>
       </Scroll>
       {loading && <Loading></Loading>}
+      <Outlet />
     </Content>
   );
 }

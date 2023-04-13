@@ -2,7 +2,13 @@ import { memo } from "react";
 import { ListWrapper, ListItem, List } from "./style";
 import { getCount } from "../../api/utils";
 import LazyLoad from "react-lazyload";
+import { useNavigate } from "react-router-dom";
 function RecommendList(props) {
+  const navigate = useNavigate();
+
+  const enterDetail = (id) => {
+    navigate(`/recommend/${id}`);
+  };
   return (
     <ListWrapper>
       <div className="before">
@@ -10,7 +16,7 @@ function RecommendList(props) {
         <List>
           {props.recommendList?.map((item, index) => {
             return (
-              <ListItem key={item.id + index}>
+              <ListItem key={item.id} onClick={() => enterDetail(item.id)}>
                 <div className="img_wrapper">
                   <div className="decorate"></div>
                   {/* 加此参数可以减小请求的图片资源大小 */}

@@ -6,14 +6,18 @@ import Home from "../application/Home";
 import Recommend from "../application/Recommend";
 import Singers from "../application/Singers";
 import Rank from "../application/Rank";
-
+import Album from "../application/Album";
 export default function MyRouter(props) {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route path="/rank" element={<Rank />}></Route>
-          <Route path="/recommend" element={<Recommend />}></Route>
+          <Route path="/rank" element={<Rank />}>
+            <Route path="/rank/:id" element={<Album />}></Route>
+          </Route>
+          <Route path="/recommend" element={<Recommend />}>
+            <Route path="/recommend/:id" element={<Album />}></Route>
+          </Route>
           <Route path="/singers" element={<Singers />}></Route>
         </Route>
       </Routes>
