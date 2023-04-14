@@ -27,7 +27,6 @@ function Album(props) {
 
   useEffect(() => {
     if (!currentAlbum?.length) {
-      console.log(id);
       dispatch(getAlbumDetailAsync(id));
     }
   }, [dispatch, id]);

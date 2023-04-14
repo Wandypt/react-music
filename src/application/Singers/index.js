@@ -16,7 +16,11 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import LazyLoad, { forceCheck } from "react-lazyload";
 import Loading from "../../baseUI/loading";
+import { useNavigate } from "react-router";
+import { Outlet } from "react-router";
 function Singers() {
+  const navigate = useNavigate();
+
   let [category, setCategory] = useState();
   // sessionStorage.getItem("cache_category") || "" //缓存
 
@@ -35,7 +39,7 @@ function Singers() {
     if (!singerList?.length) {
       dispatch(getHotSingerListAsync(0));
     }
-  }, []); //dispatch, singerList
+  }, [dispatch, singerList]); //dispatch, singerList
   //上拉列表
   const handlePullUp = () => {
     dispatch(changePullUpLoading(true));
@@ -114,6 +118,10 @@ function Singers() {
     dispatch(getSingerListAsync(obj));
     // }
   };
+  const enterDetail = (id) => {
+    console.log("dianji", id);
+    navigate(`/singers/${id}`);
+  };
   return (
     <div>
       <NavContainer>
@@ -141,7 +149,10 @@ function Singers() {
           <List>
             {singerList?.map((item, index) => {
               return (
-                <ListItem key={item.accountId + "" + index}>
+                <ListItem
+                  key={item.accountId + "" + index}
+                  onClick={() => enterDetail(item.id)}
+                >
                   <div className="img_wrapper">
                     <LazyLoad
                       placeholder={
@@ -167,8 +178,9 @@ function Singers() {
             })}
           </List>
         </Scroll>
-        {enterLoading ? <Loading></Loading> : null}
+        {enterLoading && <Loading></Loading>}
       </ListContainer>
+      <Outlet />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "http://192.168.0.101:4000";
+export const baseUrl = "http://localhost:4000";
 
 //axios 的实例及拦截器配置
 const axiosInstance = axios.create({
@@ -207,3 +207,5 @@ export const categoryMap = new Map([
   ["4002", { type: 2, area: 0 }],
   ["4003", { type: 3, area: 0 }],
 ]);
+
+export const HEADER_HEIGHT = 45;
