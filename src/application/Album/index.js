@@ -1,18 +1,18 @@
 import { memo, useState, useRef, useEffect, useCallback } from "react";
-import { Container, TopDesc, Menu, SongItem, SongList } from "./style";
+import { Container, TopDesc, Menu } from "./style";
 import { CSSTransition } from "react-transition-group";
 import Header from "../../baseUI/header";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import Scroll from "../../baseUI/scroll/index";
-import { getName, getCount } from "../../api/utils";
+import { getCount } from "../../api/utils";
 import style from "../../assets/global-style";
 import { getAlbumDetailAsync } from "./store/slice";
 import Loading from "../../baseUI/loading/index";
 import { isEmptyObject } from "../../api/utils";
-export const HEADER_HEIGHT = 45;
-
-function Album(props) {
+import { HEADER_HEIGHT } from "./../../api/config";
+import SongsList from "../SongsList";
+function Album() {
   const [showStatus, setShowStatus] = useState(true);
   const [title, setTitle] = useState("歌单");
   const [isMarquee, setIsMarquee] = useState(false); // 是否跑马灯
@@ -110,42 +110,8 @@ function Album(props) {
       </Menu>
     );
   };
+  const { playList } = useSelector((state) => state.playerReducer);
 
-  const renderSongList = () => {
-    return (
-      <SongList>
-        <div className="first_line">
-          <div className="play_all">
-            <i className="iconfont">&#xe6e3;</i>
-            <span>
-              {" "}
-              播放全部{" "}
-              <span className="sum">(共 {currentAlbum.tracks.length} 首)</span>
-            </span>
-          </div>
-          <div className="add_list">
-            <i className="iconfont">&#xe62d;</i>
-            <span> 收藏 ({getCount(currentAlbum.subscribedCount)})</span>
-          </div>
-        </div>
-        <SongItem>
-          {currentAlbum.tracks.map((item, index) => {
-            return (
-              <li key={index}>
-                <span className="index">{index + 1}</span>
-                <div className="info">
-                  <span>{item.name}</span>
-                  <span>
-                    {getName(item.ar)} - {item.al.name}
-                  </span>
-                </div>
-              </li>
-            );
-          })}
-        </SongItem>
-      </SongList>
-    );
-  };
   return (
     <CSSTransition
       in={showStatus}
@@ -155,7 +121,7 @@ function Album(props) {
       unmountOnExit
       onExited={() => navigate(-1)}
     >
-      <Container>
+      <Container play={playList.length}>
         <Header
           ref={headerEl}
           title={title}
@@ -167,7 +133,12 @@ function Album(props) {
             <div>
               {renderTopDesc()}
               {renderMenu()}
-              {renderSongList()}
+              <SongsList
+                songs={currentAlbum.tracks}
+                collectCount={currentAlbum.subscribedCount}
+                showCollect={true}
+                showBackground={true}
+              ></SongsList>
             </div>
           </Scroll>
         ) : null}

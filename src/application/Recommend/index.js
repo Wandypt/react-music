@@ -13,7 +13,7 @@ function Recommend() {
   const { bannerList, recommendList, loading } = useSelector(
     (state) => state.recommendReducer
   );
-
+  const { playList } = useSelector((state) => state.playerReducer);
   useEffect(() => {
     if (!bannerList.length) {
       dispatch(getBannerListAsync());
@@ -30,7 +30,7 @@ function Recommend() {
   // const recommendListJS = recommendList ? recommendList.toJS() : [];
 
   return (
-    <Content>
+    <Content play={playList}>
       <Scroll className="list" onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerList}></Slider>

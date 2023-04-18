@@ -62,9 +62,10 @@ function Rank() {
 
   // 榜单数据未加载出来之前都给隐藏
   let displayStyle = loading ? { display: "none" } : { display: "" };
+  const { playList } = useSelector((state) => state.playerReducer);
 
   return (
-    <Container>
+    <Container play={playList.length}>
       <Scroll>
         <div>
           <h1 className="offical" style={displayStyle}>

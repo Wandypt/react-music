@@ -4,6 +4,7 @@ import singersSlice from "../application/Singers/store/slice";
 import rankSlice from "../application/Rank/store/slice";
 import albumSlice from "../application/Album/store/slice";
 import singerSlice from "../application/Singer/store/slice";
+import playerSlice from "../application/Player/store/slice";
 //全局store
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     rankReducer: rankSlice,
     albumReducer: albumSlice,
     singerReducer: singerSlice,
+    playerReducer: playerSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

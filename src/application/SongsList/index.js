@@ -1,16 +1,26 @@
 import { memo, forwardRef } from "react";
 import { SongList, SongItem } from "./style";
 import { getName } from "../../api/utils";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changePlaying,
+  changePlayList,
+  changeCurrentIndex,
+  changeSequencePlayList,
+} from "../Player/store/slice";
 const SongsList = forwardRef((props, refs) => {
   const { collectCount, showCollect, songs } = props;
 
   const totalCount = songs.length;
-
+  const dispatch = useDispatch();
+  const { playing } = useSelector((state) => state.playerReducer);
   const selectItem = (e, index) => {
-    console.log(index);
+    // console.log(index);
+    if (!playing) dispatch(changePlaying());
+    dispatch(changePlayList(songs));
+    dispatch(changeSequencePlayList(songs));
+    dispatch(changeCurrentIndex(index));
   };
-
   let songList = (list) => {
     let res = [];
     for (let i = 0; i < list.length; i++) {

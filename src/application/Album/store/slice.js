@@ -10,7 +10,7 @@ export const getAlbumDetailAsync = createAsyncThunk(
   "album/getAlbumDetail",
   async (id) => {
     const res = await getAlbumDetailRequest(id.id);
-    console.log(res);
+
     return res; // 此处的返回结果会在 .fulfilled中作为payload的值
   }
 );

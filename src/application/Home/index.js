@@ -2,6 +2,7 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router";
 import { Top, Tab, TabItem } from "./style";
+import Player from "../Player";
 function Home(props) {
   return (
     <div>
@@ -28,6 +29,7 @@ function Home(props) {
         </Link>
       </Tab>
       <Outlet />
+      <Player />
     </div>
   );
 }

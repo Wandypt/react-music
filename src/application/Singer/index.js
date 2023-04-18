@@ -31,7 +31,7 @@ function Singer(props) {
   const { artist, songsOfArtist, loading } = useSelector(
     (state) => state.singerReducer
   );
-
+  const { playList } = useSelector((state) => state.playerReducer);
   useEffect(() => {
     dispatch(getSingerInfoAsync(id));
   }, [dispatch, id]);
@@ -109,7 +109,7 @@ function Singer(props) {
           <span className="text"> 收藏 </span>
         </CollectButton>
         <BgLayer ref={layer}></BgLayer>
-        <SongListWrapper ref={songScrollWrapper}>
+        <SongListWrapper ref={songScrollWrapper} play={playList.length}>
           <Scroll ref={songScroll} onScroll={handleScroll}>
             <SongsList songs={songsOfArtist} showCollect={false}></SongsList>
           </Scroll>
