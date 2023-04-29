@@ -1,13 +1,14 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 
 import { Route, Routes } from "react-router-dom";
-
 import Home from "../application/Home";
-import Recommend from "../application/Recommend";
-import Singers from "../application/Singers";
-import Rank from "../application/Rank";
-import Album from "../application/Album";
-import Singer from "../application/Singer";
+const Recommend = lazy(() => import("../application/Recommend"));
+
+const Singers = lazy(() => import("../application/Singers"));
+const Rank = lazy(() => import("../application/Rank"));
+const Album = lazy(() => import("../application/Album"));
+const Singer = lazy(() => import("../application/Singer"));
+const Search = lazy(() => import("../application/Search"));
 export default function MyRouter(props) {
   return (
     <>
@@ -22,6 +23,7 @@ export default function MyRouter(props) {
           <Route path="/singers" element={<Singers />}>
             <Route path="/singers/:id" element={<Singer />}></Route>
           </Route>
+          <Route path="/search" element={<Search />}></Route>
         </Route>
       </Routes>
     </>

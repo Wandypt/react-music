@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getHotSingerListRequest,
   getSingerListRequest,
-  getRecommendListRequest,
 } from "../../../api/request";
 
 const initialState = {
@@ -25,9 +24,9 @@ export const getHotSingerListAsync = createAsyncThunk(
 export const refreshMoreHotSingerListAsync = createAsyncThunk(
   "singers/refreshMoreHotSingerList",
   async (pageCount) => {
-    console.log(pageCount);
+    // console.log(pageCount);
     const res = await getHotSingerListRequest(pageCount);
-    console.log(res);
+    // console.log(res);
     return res;
   }
 );
@@ -35,8 +34,8 @@ export const refreshMoreHotSingerListAsync = createAsyncThunk(
 export const getSingerListAsync = createAsyncThunk(
   "singers/getSingerList",
   async (obj) => {
-    console.log(obj);
-    const res = await getSingerListRequest(obj.type, obj.area, obj.alpha, 0);
+    // console.log(obj);
+    const res = await getSingerListRequest(obj.type, obj.area, 0);
     return res;
   }
 );
@@ -46,13 +45,8 @@ export const refreshMoreSingerListAsync = createAsyncThunk(
   "singers/refreshMoreSingerList",
   async (obj) => {
     console.log(obj.offset);
-    const res = await getSingerListRequest(
-      obj.type,
-      obj.area,
-      obj.alpha,
-      obj.offset
-    );
-    console.log(res);
+    const res = await getSingerListRequest(obj.type, obj.area, obj.offset);
+    // console.log(res);
     return res;
   }
 );

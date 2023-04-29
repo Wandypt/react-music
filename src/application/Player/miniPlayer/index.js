@@ -2,7 +2,6 @@ import { memo, useRef } from "react";
 import { getName } from "../../../api/utils";
 import { MiniPlayerContainer } from "./style";
 import { CSSTransition } from "react-transition-group";
-import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../../baseUI/progress/circle";
 function MiniPlayer(props) {
   const {

@@ -70,7 +70,7 @@ function Player(props) {
     getLyric(current.id);
     setCurrentTime(0); //从头开始播放
     setDuration((current.dt / 1000) | 0); //时长
-  }, [playList, currentIndex]);
+  }, [dispatch, playList, currentIndex]);
 
   useEffect(() => {
     playing ? audioRef.current.play() : audioRef.current.pause();

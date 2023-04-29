@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from "react";
 import Horizen from "../../baseUI/horizen-item";
-import { categoryTypes, alphaTypes, categoryMap } from "../../api/config";
+import { categoryTypes, categoryMap } from "../../api/config";
 import { NavContainer, List, ListItem, ListContainer } from "./style";
 import Scroll from "../../baseUI/scroll/index"; //../.. ../../components/scroll/index";
 import {
@@ -24,7 +24,7 @@ function Singers() {
   let [category, setCategory] = useState();
   // sessionStorage.getItem("cache_category") || "" //缓存
 
-  let [alpha, setAlpha] = useState(); //sessionStorage.getItem("cache_alpha") || ""
+  // let [alpha, setAlpha] = useState(); //sessionStorage.getItem("cache_alpha") || ""
 
   const dispatch = useDispatch();
   const {
@@ -39,7 +39,7 @@ function Singers() {
     if (!singerList?.length) {
       dispatch(getHotSingerListAsync(0));
     }
-  }, [dispatch, singerList]); //dispatch, singerList
+  }, [singerList]); //dispatch, singerList
   //上拉列表
   const handlePullUp = () => {
     dispatch(changePullUpLoading(true));
@@ -50,7 +50,6 @@ function Singers() {
       const obj = {
         type: categoryMap.get(category).type,
         area: categoryMap.get(category).area,
-        alpha: alpha,
         offset: pageCount + 1,
       };
       dispatch(refreshMoreSingerListAsync(obj));
@@ -61,42 +60,42 @@ function Singers() {
   const handlePullDown = () => {
     dispatch(changePageCount(0));
     dispatch(changePullDownLoading(true));
-    if (category === "" && alpha === "") {
+    if (category === "") {
       dispatch(getHotSingerListAsync());
     } else {
       const type = categoryMap.get(category).type;
       const area = categoryMap.get(category).area;
-      const obj = { type: type, area: area, alpha: alpha };
+      const obj = { type: type, area: area };
       dispatch(getSingerListAsync(obj));
     }
   };
 
-  let handleUpdateAlpha = (val) => {
-    // if (val === alpha) {
-    //   setAlpha("");
-    //   sessionStorage.setItem("alpha", "");
-    //   setCategory("");
-    //   sessionStorage.setItem("category", "");
+  // let handleUpdateAlpha = (val) => {
+  //   // if (val === alpha) {
+  //   //   setAlpha("");
+  //   //   sessionStorage.setItem("alpha", "");
+  //   //   setCategory("");
+  //   //   sessionStorage.setItem("category", "");
 
-    //   dispatch(changePageCount(0));
-    //   dispatch(getHotSingerListAsync());
-    // } else {
-    setAlpha(val);
-    // sessionStorage.setItem("cache_alpha", val);
-    // if (category === "") {
-    //   dispatch(changePageCount(0));
-    //   dispatch(changeEnterLoading(true));
-    //   dispatch(getSingerListAsync({ alpha: val }));
-    // } else {
-    const type = categoryMap.get(category).type;
-    const area = categoryMap.get(category).area;
-    const obj = { type: type, area: area, alpha: val };
-    dispatch(changePageCount(0));
-    dispatch(changeEnterLoading(true));
-    dispatch(getSingerListAsync(obj));
-    // }
-    // }
-  };
+  //   //   dispatch(changePageCount(0));
+  //   //   dispatch(getHotSingerListAsync());
+  //   // } else {
+  //   setAlpha(val);
+  //   // sessionStorage.setItem("cache_alpha", val);
+  //   // if (category === "") {
+  //   //   dispatch(changePageCount(0));
+  //   //   dispatch(changeEnterLoading(true));
+  //   //   dispatch(getSingerListAsync({ alpha: val }));
+  //   // } else {
+  //   const type = categoryMap.get(category).type;
+  //   const area = categoryMap.get(category).area;
+  //   const obj = { type: type, area: area, alpha: val };
+  //   dispatch(changePageCount(0));
+  //   dispatch(changeEnterLoading(true));
+  //   dispatch(getSingerListAsync(obj));
+  //   // }
+  //   // }
+  // };
 
   let handleUpdateCatetory = (val) => {
     // if (val === category) {
@@ -112,7 +111,7 @@ function Singers() {
     // sessionStorage.setItem("cache_category", val);
     const type = categoryMap.get(val).type;
     const area = categoryMap.get(val).area;
-    const obj = { type: type, area: area, alpha: alpha };
+    const obj = { type: type, area: area };
     dispatch(changePageCount(0));
     dispatch(changeEnterLoading(true));
     dispatch(getSingerListAsync(obj));
@@ -127,16 +126,16 @@ function Singers() {
       <NavContainer>
         <Horizen
           list={categoryTypes}
-          title={"分类 (默认热门):"}
+          title={"分类: "}
           handleClick={(val) => handleUpdateCatetory(val)}
           oldVal={category}
         ></Horizen>
-        <Horizen
+        {/* <Horizen
           list={alphaTypes}
           title={"首字母:"}
           handleClick={(val) => handleUpdateAlpha(val)}
           oldVal={alpha}
-        ></Horizen>
+        ></Horizen> */}
       </NavContainer>
       <ListContainer>
         <Scroll

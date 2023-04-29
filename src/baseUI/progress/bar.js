@@ -1,7 +1,6 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import styled from "styled-components";
 import style from "../../assets/global-style";
-import { prefixStyle } from "./../../api/utils";
 
 const ProgressBarWrapper = styled.div`
   height: 30px;

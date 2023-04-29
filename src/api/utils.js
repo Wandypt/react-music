@@ -8,6 +8,22 @@ export const getCount = (count) => {
     return Math.floor(count / 10000000) / 10 + "亿";
   }
 };
+
+export const throttle = (fn, delay) => {
+  //记录上一次函数触发的时间
+  var lastTime = 0;
+  return function () {
+    //记录当前函数触发的时间
+    var nowTime = Date.now();
+    if (nowTime - lastTime > delay) {
+      //修正this指向问题
+      fn.call(this);
+      //同步执行结束时间
+      // console.log("throttle");
+      lastTime = nowTime;
+    }
+  };
+};
 export const debounce = (func, delay) => {
   let timer;
   return function (...args) {
