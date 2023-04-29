@@ -7,12 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBannerListAsync, getRecommendListAsync } from "./store/slice";
 import { forceCheck } from "react-lazyload";
 import Loading from "../../baseUI/loading/index";
+import { Outlet } from "react-router-dom";
 function Recommend() {
   const dispatch = useDispatch();
   const { bannerList, recommendList, loading } = useSelector(
     (state) => state.recommendReducer
   );
-
+  const { playList } = useSelector((state) => state.playerReducer);
   useEffect(() => {
     if (!bannerList.length) {
       dispatch(getBannerListAsync());
@@ -29,7 +30,7 @@ function Recommend() {
   // const recommendListJS = recommendList ? recommendList.toJS() : [];
 
   return (
-    <Content>
+    <Content play={playList}>
       <Scroll className="list" onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerList}></Slider>
@@ -37,6 +38,7 @@ function Recommend() {
         </div>
       </Scroll>
       {loading && <Loading></Loading>}
+      <Outlet />
     </Content>
   );
 }
