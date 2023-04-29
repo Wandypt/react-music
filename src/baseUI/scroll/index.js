@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Loading from "../loading";
 import LoadingV2 from "../loading-v2";
-import { debounce } from "../../api/utils";
+import { debounce, throttle } from "../../api/utils";
 
 const ScrollContainer = styled.div`
   width: 100%;
@@ -50,16 +50,17 @@ const Scroll = forwardRef((props, ref) => {
   const { pullUp, pullDown, onScroll, pullUpLoading, pullDownLoading } = props;
 
   let pullUpDebounce = useMemo(() => {
-    return debounce(pullUp, 300);
+    return throttle(pullUp, 300);
   }, [pullUp]);
   // 千万注意，这里不能省略依赖，
   // 不然拿到的始终是第一次 pullUp 函数的引用，相应的闭包作用域变量都是第一次的，产生闭包陷阱。下同。
 
   let pullDownDebounce = useMemo(() => {
-    return debounce(pullDown, 300);
+    return throttle(pullDown, 300);
   }, [pullDown]);
 
   useEffect(() => {
+    // console.log("build scroll");
     const scroll = new BScroll(scrollContaninerRef.current, {
       scrollX: direction === "horizental",
       scrollY: direction === "vertical",
@@ -73,6 +74,7 @@ const Scroll = forwardRef((props, ref) => {
     });
     setBScroll(scroll);
     return () => {
+      // console.log("unload scroll");
       setBScroll(null);
     };
   }, []);

@@ -97,6 +97,7 @@ function NormalPlayer(props) {
   useEffect(() => {
     if (!lyricScrollRef.current) return;
     let bScroll = lyricScrollRef.current.getBScroll();
+    if (!bScroll) return; //console.log("!bScroll.scrollTo"); 不判断的话会在清空歌曲列表时出错，清空歌曲列表，currentLineNum还在变，
     if (currentLineNum > 5) {
       // 保持当前歌词在第 5 条的位置
       let lineEl = lyricLineRefs.current[currentLineNum - 5].current;

@@ -17,7 +17,7 @@ export const getSongDetailAsync = createAsyncThunk(
   "player/getSongDetail",
   async (id) => {
     const res = await getSongDetailRequest(id);
-    const data = res.songs[0];
+    const data = res.data.songs[0];
     return data;
   }
 );
@@ -65,6 +65,7 @@ export const playerSlice = createSlice({
       state.showPlayList = false;
       state.currentSong = {};
       state.playing = false;
+      state.fullScreen = false;
     },
   },
   extraReducers: (builder) => {

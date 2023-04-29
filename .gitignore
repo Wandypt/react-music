@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 /tqh-music
 /NeteaseCloudMusicApi
+test.js
+DolphinDB.js

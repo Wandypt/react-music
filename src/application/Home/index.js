@@ -9,7 +9,9 @@ function Home(props) {
       <Top>
         <span className="iconfont menu">&#xe65c;</span>
         <span className="title">Web App</span>
-        <span className="iconfont search">&#xe62b;</span>
+        <Link to="/search" activeclassname="selected">
+          <span className="iconfont search">&#xe62b;</span>
+        </Link>
       </Top>
       <Tab>
         <Link to="/recommend" activeclassname="selected">
