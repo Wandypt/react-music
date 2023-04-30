@@ -11,4 +11,4 @@ cd .. && npm start
 
 ![avatar](./src/assets/pic1.PNG)
 ![avatar](./src/assets/pic2.PNG)
-![avatar](./src/assets/pic2.PNG)
+![avatar](./src/assets/pic3.PNG)
