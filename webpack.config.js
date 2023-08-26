@@ -7,7 +7,9 @@ module.exports = {
     filename: "my-first-webpack.bundle.js",
   },
   module: {
-    loaders: [{ test: /\.js|jsx$/, loaders: ["babel"] }],
+    loaders: [
+      { test: /\.js|jsx$/, loaders: ["babel-loader"], exclude: /node_modules/ },
+    ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
